@@ -14,11 +14,15 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+
         Button bt1 = (Button) findViewById(R.id.bt1);
+        //添加角标通知
         BadgeView badgeView = new BadgeView(getBaseContext());
         badgeView.setTargetView(bt1);
         badgeView.setBadgeCount(3);
         badgeView.setTextSize(20);
+
+
         bt1.setOnClickListener(this);
 
     }
