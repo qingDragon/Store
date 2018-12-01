@@ -12,7 +12,11 @@ public class OrderList {
         this.signuptime = signuptime;
         this.goodscomments = goodscomments;
     }
-
+    public OrderList(){
+        this.users = "";
+        this.signuptime = "";
+        this.goodscomments = "";
+    }
     public String getUsers() {
         return users;
     }
@@ -23,5 +27,10 @@ public class OrderList {
 
     public String getGoodscomments() {
         return goodscomments;
+    }
+
+    @Override
+    public String toString() {
+        return this.getUsers();
     }
 }

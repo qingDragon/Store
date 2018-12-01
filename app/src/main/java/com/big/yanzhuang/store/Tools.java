@@ -7,7 +7,7 @@ public class Tools {
     public static JsonObject str2Json(String string){
         JsonParser parser = new JsonParser();
         JsonObject jObject = new JsonObject();
-        jObject = (JsonObject) parser.parse(string);
-        return jObject;
+        return parser.parse(string).getAsJsonObject();
+
     }
 }
