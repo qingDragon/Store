@@ -7,15 +7,17 @@ public class OrderList {
     private String usernum= "";
     private String goodscomments = "";
     private String datas = "";
-    public OrderList(String users,String signuptime,String goodscomments){
+    public OrderList(String users,String signuptime,String goodscomments,String orderid){
         this.users = users;
         this.signuptime = signuptime;
         this.goodscomments = goodscomments;
+        this.orderid = orderid;
     }
     public OrderList(){
         this.users = "";
         this.signuptime = "";
         this.goodscomments = "";
+        this.orderid ="";
     }
     public String getUsers() {
         return users;
@@ -27,6 +29,10 @@ public class OrderList {
 
     public String getGoodscomments() {
         return goodscomments;
+    }
+
+    public String getOrderid() {
+        return orderid;
     }
 
     @Override
