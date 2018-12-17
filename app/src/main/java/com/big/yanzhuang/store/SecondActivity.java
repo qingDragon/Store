@@ -66,14 +66,10 @@ public class SecondActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             OrderList orderList3 = orderLists.get(position);
-                            dialogMoreChoice((ArrayList<Goods>) order_goods.get(position),orderList3);
+                            showListDialog((ArrayList<Goods>) order_goods.get(position),orderList3);
 
                         }
                     });
-
-                case 2:
-                    myAdapter = new MyAdapter(SecondActivity.this, orderLists);
-                    listView.setAdapter(myAdapter);
 
 
             }
@@ -165,9 +161,13 @@ public class SecondActivity extends AppCompatActivity {
                     JsonObject jo = Tools.str2Json(data);
                     //获得订单信息
                     if (!jo.get("code").getAsString().equals("0") ) {
+                        Message msg = new Message();
+                        msg.what = 1;
+                        handler.sendMessage(msg);
                         Looper.prepare();
                         Toast.makeText(SecondActivity.this, "未查询到订单", Toast.LENGTH_SHORT).show();
                         Looper.loop();
+
                     } else {
                         JsonArray ja = jo.get("datas").getAsJsonArray();
                         //获得订单物品
@@ -214,7 +214,7 @@ public class SecondActivity extends AppCompatActivity {
      * 审批物品dialog
      * @param goodslists
      */
-    private void dialogMoreChoice(final ArrayList<Goods> goodslists, final OrderList orderList4) {
+    private void showListDialog(final ArrayList<Goods> goodslists, final OrderList orderList4) {
         final String items[] =new String[goodslists.size()];
         final boolean selected[] =new boolean[goodslists.size()];
 
@@ -225,17 +225,16 @@ public class SecondActivity extends AppCompatActivity {
         }
 
         @SuppressLint("ResourceType")
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,3);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("领料清单");
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setMultiChoiceItems(items, selected,
-                new DialogInterface.OnMultiChoiceClickListener() {
+
+        builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which,
-                                        boolean isChecked) {
+                    public void onClick(DialogInterface dialog, int which
+                                        ) {
 
                         Toast.makeText(SecondActivity.this,
-                                items[which] + isChecked, Toast.LENGTH_SHORT)
+                                items[which], Toast.LENGTH_SHORT)
                                 .show();
                     }
                 });
@@ -249,27 +248,29 @@ public class SecondActivity extends AppCompatActivity {
 ////                for (int i = 0; i < selected.length; i++) {
 ////                    Log.e("hongliang", "" + selected[i]);
 ////                }
-                goodscata = new ArrayList<>();
-                ja = new JSONArray();
-                for(int i = 0;i< goodslists.size();i++){
-                    System.out.println(selected[i]);
-
-                    if(selected[i] == true){
-                        Toast.makeText(SecondActivity.this, goodslists.get(i).getCate(), Toast.LENGTH_SHORT)
-                                .show();
-                        goodscata.add("\""+ goodslists.get(i).getCate() + "\"");
-
-                        ja.put(goodslists.get(i).getCate());
-
-
-                    }
-                    System.out.println(ja);
-                }
-                System.out.println(ja.toString()+"1111");
+//                goodscata = new ArrayList<>();
+//                ja = new JSONArray();
+//                for(int i = 0;i< goodslists.size();i++){
+//                    System.out.println(selected[i]);
+//
+//                    if(selected[i] == true){
+//                        Toast.makeText(SecondActivity.this, goodslists.get(i).getCate(), Toast.LENGTH_SHORT)
+//                                .show();
+//                        goodscata.add("\""+ goodslists.get(i).getCate() + "\"");
+//
+//                        ja.put(goodslists.get(i).getCate());
+//
+//
+//                    }
+//                    System.out.println(ja);
+//                }
+//                System.out.println(ja.toString()+"1111");
 
 
                 getServiceData2(orderList4);
-                getServerdata();
+//                getServerdata();
+
+
 
             }
         });
@@ -329,6 +330,7 @@ public class SecondActivity extends AppCompatActivity {
                     } else{
                         Log.d("tip","审批失败");
                     }
+                    getServerdata();
 //                    Message msg = new Message();
 //                    msg.what =1;
 //                    handler.sendMessage(msg);
