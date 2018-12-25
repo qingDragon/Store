@@ -2,44 +2,37 @@ package com.big.yanzhuang.store;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static com.big.yanzhuang.store.R.layout.activity_second;
 
-public class SecondActivity extends AppCompatActivity {
-
+public class SecondActivity extends AppCompatActivity implements View.OnClickListener{
+    private ImageView imageView3;
     private ListView listView;
     private List<OrderList> data_list;
     private MyAdapter myAdapter;
@@ -53,6 +46,7 @@ public class SecondActivity extends AppCompatActivity {
     private ArrayList<String> goodscata = new ArrayList();
 
     public String data;
+    //handle更新ui
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -76,9 +70,7 @@ public class SecondActivity extends AppCompatActivity {
 
         }
     };
-//    private  void dialogMoreChoice(ArrayList orderLists){
-//        String items[] = orderLists.
-//    }
+
 
 
 
@@ -86,36 +78,16 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_second);
-        initView();
-        getServerdata();
-        Log.d("hello","hello");
-
-
-
-
-//        System.out.println(str2order(data).getUsers());
-//        Log.d("输出",str2order(data).toString());
-
-
-    }
-
-
-    public void initView(){
-
         listView = findViewById(R.id.list_view);
+        imageView3 = findViewById(R.id.img3);
+        getServerdata();
+        imageView3.setOnClickListener(this);
+        Log.d("hello","hello");
     }
 
-
-    public void initData(OrderList orderList){
-
-    }
-//    public void initData(){
-//        data_list = new ArrayList<OrderList>();
-//        OrderList orderList = new OrderList("yz","20180820","抢修");
-//        data_list.add(orderList);
-//        myAdapter = new MyAdapter(this,data_list);
-//        listView.setAdapter(myAdapter);
-//    }
+    /**
+     * 解析http请求获取的json格式字符串
+     */
     public OrderList str2order(String string){
         String order ;
         JsonObject jsonObject = Tools.str2Json(string);
@@ -127,14 +99,15 @@ public class SecondActivity extends AppCompatActivity {
         String signuptime = jsonObject2.get("signuptime").getAsString();
         String goodscomments = jsonObject2.get("goodscomments").getAsString();
         String orderid = jsonObject2.get("orderid").getAsString();
+        String usernum = jsonObject2.get("usernum").getAsString();
         System.out.println(string);
-        orderList = new OrderList(users,signuptime,goodscomments,orderid);
+        orderList = new OrderList(users,signuptime,goodscomments,orderid,usernum);
         System.out.println(users);
         return orderList;
     }
 
     /**
-     * 与服务器交互
+     * 第一次交互获取订单信息
      */
     public void getServerdata(){
         new Thread(new Runnable() {
@@ -155,11 +128,11 @@ public class SecondActivity extends AppCompatActivity {
                     Log.d("body2", body2.toString());
                     //第二次请求获得的未审批订单内容
                     data = HttpSend.doPost("https://www.kpcodingoffice.com/api/orderdata", body2);
-//                    System.out.println("123456789:" + data);
+
                     Log.d("data", data);
 
                     JsonObject jo = Tools.str2Json(data);
-                    //获得订单信息
+                    //判断服务器是否返回正确
                     if (!jo.get("code").getAsString().equals("0") ) {
                         Message msg = new Message();
                         msg.what = 1;
@@ -176,7 +149,7 @@ public class SecondActivity extends AppCompatActivity {
 
                         for (int i = 0; i < ja.size(); i++) {
                             jo = ja.get(i).getAsJsonObject();
-                            orderLists.add(new OrderList(jo.get("users").getAsString(), jo.get("signuptime").getAsString(), jo.get("goodscomments").getAsString(), jo.get("orderid").getAsString()));
+                            orderLists.add(new OrderList(jo.get("users").getAsString(), jo.get("signuptime").getAsString(), jo.get("goodscomments").getAsString(), jo.get("orderid").getAsString(),jo.get("usernum").getAsString()));
                             ja2 = ja.get(i).getAsJsonObject().get("datas").getAsJsonArray();
                             goodslists = new ArrayList<>();
                             for (int j = 0; j < ja2.size(); j++) {
@@ -192,8 +165,6 @@ public class SecondActivity extends AppCompatActivity {
                         Message msg = new Message();
                         msg.what = 1;
                         handler.sendMessage(msg);
-                        //                   handler.sendEmptyMessage(1);
-                        //                    Log.d("name",str2order(data).getUsers());
                     }
 
                     } catch(NoSuchProviderException e){
@@ -242,43 +213,14 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-//                Toast.makeText(SecondActivity.this, "确定", Toast.LENGTH_SHORT)
-//                        .show();
-                // android会自动根据你选择的改变selected数组的值。
-////                for (int i = 0; i < selected.length; i++) {
-////                    Log.e("hongliang", "" + selected[i]);
-////                }
-//                goodscata = new ArrayList<>();
-//                ja = new JSONArray();
-//                for(int i = 0;i< goodslists.size();i++){
-//                    System.out.println(selected[i]);
-//
-//                    if(selected[i] == true){
-//                        Toast.makeText(SecondActivity.this, goodslists.get(i).getCate(), Toast.LENGTH_SHORT)
-//                                .show();
-//                        goodscata.add("\""+ goodslists.get(i).getCate() + "\"");
-//
-//                        ja.put(goodslists.get(i).getCate());
-//
-//
-//                    }
-//                    System.out.println(ja);
-//                }
-//                System.out.println(ja.toString()+"1111");
-
-
                 getServiceData2(orderList4);
-//                getServerdata();
-
-
-
             }
         });
         builder.create().show();
     }
 
     /**
-     * 第三次http请求获取
+     * 调用checkorder审批订单
      * @param orderList2
      */
     public void getServiceData2(final OrderList orderList2){
@@ -289,8 +231,9 @@ public class SecondActivity extends AppCompatActivity {
                 String time;
                 Map<String, String> body = new HashMap<>();
                 Map<String, String> body2 = new HashMap<>();
-                body.put("usernum", "662995");
+                body.put("usernum", orderList2.getUsernum());
                 body.put("userpwd", "123456");
+                Log.d("usernum",orderList2.getUsernum());
                 try {
                     //获取订单token
                     String s = HttpSend.doPost("https://www.kpcodingoffice.com/api/index", body);
@@ -315,12 +258,13 @@ public class SecondActivity extends AppCompatActivity {
 //                    ja.put(jO);
 //                    Log.d("ja",ja.toString());
                     Map body3 = new HashMap();
-                    body3.put("usernum","662995");
+                    body3.put("usernum",orderList2.getUsernum());
                     body3.put("token",token);
                     body3.put("data",orderList2.getOrderid());
                     body3.put("checktime",time);
                     res = HttpSend.doPost("https://www.kpcodingoffice.com/api/checkorder", body3);
                     Log.d("body3",body3.toString());
+                    Log.d("res", res);
 
 
 
@@ -350,5 +294,17 @@ public class SecondActivity extends AppCompatActivity {
             }
         }).start();
     }
+    public void onBackPressed() {
+        super.onBackPressed();//注释掉这行,back键不退出activity
+        Intent intent = new Intent(SecondActivity.this,FirstActivity.class);
+        startActivity(intent);
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.img3:
+                getServerdata();
+        }
+    }
 }
