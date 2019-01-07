@@ -119,11 +119,11 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                     System.out.println("begin");
                     Map<String, String> body = new HashMap<>();
                     Map<String, String> body2 = new HashMap<>();
-                    body.put("usernum", "662995");
-                    body.put("userpwd", "123456");
+                    body.put("usernum", LoginActivity.usernum);
+                    body.put("userpwd", LoginActivity.userpwd);
                     String s = HttpSend.doPost("https://www.kpcodingoffice.com/api/index", body);
                     System.out.println(Tools.str2Json(s).get("token").getAsString());
-                    body2.put("usernum", "662995");
+                    body2.put("usernum", LoginActivity.usernum);
                     body2.put("token", Tools.str2Json(s).get("token").getAsString());
                     Log.d("body2", body2.toString());
                     //第二次请求获得的未审批订单内容
@@ -296,8 +296,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     }
     public void onBackPressed() {
         super.onBackPressed();//注释掉这行,back键不退出activity
-        Intent intent = new Intent(SecondActivity.this,FirstActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     @Override

@@ -29,8 +29,9 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     BadgeView badgeView ;
     private int result= 0;
     Button bt1;
-
+    Button bt_phone;
     ImageView imageView3;
+
     private Handler handler = new Handler(){
         public void handleMessage(Message msg){
              switch (msg.what) {
@@ -39,8 +40,6 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
                          badgeView.setTargetView(bt1);
                          badgeView.setBadgeCount(result);
                          badgeView.setTextSize(15);
-
-
                      }
              }
         }
@@ -52,6 +51,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         badgeView = new BadgeView(getBaseContext());
         imageView3 = (ImageView) findViewById(R.id.img3) ;
         bt1 = (Button) findViewById(R.id.bt1);
+        bt_phone =(Button) findViewById(R.id.bt5);
         //添加角标通知
         getOrderAmount();
         Log.d("hello","主线程");
@@ -60,6 +60,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
 
         //添加按钮监听
         bt1.setOnClickListener(this);
+        bt_phone.setOnClickListener(this);
         imageView3.setOnClickListener(this);
 
 
@@ -75,11 +76,11 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
                     System.out.println("begin");
                     Map<String, String> body = new HashMap<>();
                     Map<String, String> body2 = new HashMap<>();
-                    body.put("usernum", "662995");
-                    body.put("userpwd", "123456");
+                    body.put("usernum", LoginActivity.usernum);
+                    body.put("userpwd", LoginActivity.userpwd);
                     String s = HttpSend.doPost("https://www.kpcodingoffice.com/api/index", body);
                     System.out.println(Tools.str2Json(s).get("token").getAsString());
-                    body2.put("usernum", "662995");
+                    body2.put("usernum", LoginActivity.usernum);
                     body2.put("token", Tools.str2Json(s).get("token").getAsString());
                     Log.d("body2", body2.toString());
                     //第二次请求获得的未审批订单内容
@@ -126,13 +127,22 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
                 //使用intent启动活动
                 Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
                 startActivity(intent);
+                break;
             case R.id.img3:
                 getOrderAmount();
+                break;
+            case R.id.bt5:
+                Intent intent2 = new Intent(FirstActivity.this,PhoneActivity.class);
+                startActivity(intent2);
+                break;
+            default:
+                break;
         }
     }
     //返回键
-    public void onBackPressed() {
-        //super.onBackPressed();//注释掉这行,back键不退出activity
-        System.exit(0);
-    }
+//    public void onBackPressed() {
+//        finish();//注释掉这行,back键不退出activity
+//
+//    }
+
 }
