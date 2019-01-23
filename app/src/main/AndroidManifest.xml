@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -26,7 +27,8 @@
         </activity>
         <activity android:name=".FirstActivity" />
         <activity android:name=".SecondActivity" />
-        <activity android:name=".PhoneActivity"></activity>
+        <activity android:name=".PhoneActivity" />
+        <activity android:name=".LiveActivity"></activity>
     </application>
 
 </manifest>

@@ -1,14 +1,25 @@
 apply plugin: 'com.android.application'
 
 android {
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi', 'armeabi-v7a'
+            universalApk true
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.big.yanzhuang.store"
-        minSdkVersion 14
+        minSdkVersion 18
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi","armeabi-v7a"
+        }
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES'
             exclude 'META-INF/NOTICE'
@@ -27,6 +38,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation (name: 'LiteAVSDK_Smart_5.4.6097', ext: 'aar')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:design:27.1.1'

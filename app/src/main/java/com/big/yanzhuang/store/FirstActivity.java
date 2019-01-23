@@ -29,6 +29,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     BadgeView badgeView ;
     private int result= 0;
     Button bt1;
+    Button bt3;
     Button bt_phone;
     ImageView imageView3;
 
@@ -51,6 +52,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         badgeView = new BadgeView(getBaseContext());
         imageView3 = (ImageView) findViewById(R.id.img3) ;
         bt1 = (Button) findViewById(R.id.bt1);
+        bt3 = (Button) findViewById(R.id.bt3);
         bt_phone =(Button) findViewById(R.id.bt5);
         //添加角标通知
         getOrderAmount();
@@ -60,6 +62,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
 
         //添加按钮监听
         bt1.setOnClickListener(this);
+        bt3.setOnClickListener(this);
         bt_phone.setOnClickListener(this);
         imageView3.setOnClickListener(this);
 
@@ -134,6 +137,10 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
             case R.id.bt5:
                 Intent intent2 = new Intent(FirstActivity.this,PhoneActivity.class);
                 startActivity(intent2);
+                break;
+            case R.id.bt3:
+                Intent intent3 = new Intent(FirstActivity.this,LiveActivity.class);
+                startActivity(intent3);
                 break;
             default:
                 break;
