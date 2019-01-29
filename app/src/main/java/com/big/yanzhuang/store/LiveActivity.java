@@ -12,7 +12,7 @@ public class LiveActivity extends AppCompatActivity {
     private TXCloudVideoView mView = null;
 //    private Button bt1;
     private TXLivePlayer mPlayer = null;
-    private String flvUrl = "http://live.kpcodingoffice.com/live/StreamName.flv?txSecret=Md5(key+StreamName+hex(time))&txTime=hex(time)";
+    private String flvUrl = "http://live.kpcodingoffice.com/live/bonjava.flv";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
