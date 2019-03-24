@@ -17,66 +17,114 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp">
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"></LinearLayout>
+            <ImageView
+                android:id="@+id/img_view1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
 
-            <Button
-                android:id="@+id/bt1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/img02" />
-
-            <Button
-                android:id="@+id/bt2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/img03" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/bt3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/img04" />
-
-            <Button
-                android:id="@+id/bt4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/img05" />
+                android:layout_height="match_parent"
+                android:src="@drawable/img02" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"></LinearLayout>
+            <ImageView
+                android:id="@+id/img_view2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:layout_height="match_parent"
+                android:src="@drawable/img03" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"></LinearLayout>
         </LinearLayout>
         <LinearLayout
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="0.2"></LinearLayout>
 
-            <Button
-                android:id="@+id/bt5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/img06" />
-
-            <Button
-                android:id="@+id/bt6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/img07" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"></LinearLayout>
+            <ImageView
+                android:id="@+id/img_view3"
+                android:scaleType="fitCenter"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@drawable/img04" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"></LinearLayout>
+            <ImageView
+                android:id="@+id/img_view4"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img05" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"></LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"></LinearLayout>
+            <ImageView
+                android:id="@+id/img_view5"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@drawable/img06"
+                android:scaleType="fitCenter"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"></LinearLayout>
+            <ImageView
+                android:id="@+id/img_view6"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@drawable/img07"
+                android:scaleType="fitCenter"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"></LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"></LinearLayout>
 
 
     </LinearLayout>
@@ -85,7 +133,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="0dp"
@@ -95,8 +143,9 @@
             android:id="@+id/img1"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/img1"
+            android:layout_height="match_parent"
+            android:src="@drawable/img1"
+            android:scaleType="fitCenter"
             />
         <LinearLayout
             android:layout_width="0dp"
@@ -105,9 +154,10 @@
         <ImageView
             android:id="@+id/img2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/img2"
+            android:src="@drawable/img2"
+            android:scaleType="fitCenter"
             />
         <LinearLayout
             android:layout_width="0dp"
@@ -117,13 +167,14 @@
             android:id="@+id/img3"
 
             android:layout_width="0px"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/img3"
+            android:src="@drawable/img3"
+            android:scaleType="fitCenter"
             />
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.8"></LinearLayout>
     </LinearLayout>
 

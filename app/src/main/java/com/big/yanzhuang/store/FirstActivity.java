@@ -28,10 +28,10 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     private String data="";//http请求返回的数据
     BadgeView badgeView ;
     private int result= 0;
-    Button bt1;
-    Button bt3;
-    Button bt4;
-    Button bt_phone;
+    ImageView img_view1;
+    ImageView img_view3;
+    ImageView img_view4;
+    ImageView img_view5;
     ImageView imageView3;
 
     private Handler handler = new Handler(){
@@ -39,7 +39,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
              switch (msg.what) {
                  case 1:
                      if (result != 0) {
-                         badgeView.setTargetView(bt1);
+                         badgeView.setTargetView(img_view1);
                          badgeView.setBadgeCount(result);
                          badgeView.setTextSize(15);
                      }
@@ -52,10 +52,10 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_first);
         badgeView = new BadgeView(getBaseContext());
         imageView3 = (ImageView) findViewById(R.id.img3) ;
-        bt1 = (Button) findViewById(R.id.bt1);
-        bt3 = (Button) findViewById(R.id.bt3);
-        bt4 = findViewById(R.id.bt4);
-        bt_phone =(Button) findViewById(R.id.bt5);
+        img_view1 =  findViewById(R.id.img_view1);
+        img_view3 =  findViewById(R.id.img_view3);
+        img_view4 =  findViewById(R.id.img_view4);
+        img_view5 =  findViewById(R.id.img_view5);
         //添加角标通知
         getOrderAmount();
         Log.d("hello","主线程");
@@ -63,14 +63,18 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
 
 
         //添加按钮监听
-        bt1.setOnClickListener(this);
-        bt3.setOnClickListener(this);
-        bt4.setOnClickListener(this);
-        bt_phone.setOnClickListener(this);
+        img_view1.setOnClickListener(this);
+        img_view3.setOnClickListener(this);
+        img_view4.setOnClickListener(this);
+        img_view5.setOnClickListener(this);
         imageView3.setOnClickListener(this);
 
 
     }
+
+    /**
+     * 获取订单数量
+     */
     public void getOrderAmount(){
 
         new Thread(new Runnable() {
@@ -129,7 +133,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.bt1:
+            case R.id.img_view1:
                 //使用intent启动活动
                 Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
                 startActivity(intent);
@@ -137,15 +141,15 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
             case R.id.img3:
                 getOrderAmount();
                 break;
-            case R.id.bt5:
+            case R.id.img_view5:
                 Intent intent2 = new Intent(FirstActivity.this,PhoneActivity.class);
                 startActivity(intent2);
                 break;
-            case R.id.bt3:
+            case R.id.img_view3:
                 Intent intent3 = new Intent(FirstActivity.this,LiveActivity.class);
                 startActivity(intent3);
                 break;
-            case R.id.bt4:
+            case R.id.img_view4:
                 Intent intent4 = new Intent(FirstActivity.this,OutActivity.class);
                 startActivity(intent4);
 
