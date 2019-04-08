@@ -29,7 +29,8 @@
         <activity android:name=".SecondActivity" />
         <activity android:name=".PhoneActivity" />
         <activity android:name=".LiveActivity" />
-        <activity android:name=".OutActivity"></activity>
+        <activity android:name=".OutActivity" />
+        <activity android:name=".Instore" />
     </application>
 
 </manifest>

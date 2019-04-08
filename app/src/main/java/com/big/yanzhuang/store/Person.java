@@ -1,5 +1,8 @@
 package com.big.yanzhuang.store;
 
+/**
+ * 联系人类
+ */
 public class Person {
     private String name;
     private String num;

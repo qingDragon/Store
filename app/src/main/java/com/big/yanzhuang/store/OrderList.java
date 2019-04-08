@@ -1,5 +1,8 @@
 package com.big.yanzhuang.store;
 
+/**
+ * 订单类
+ */
 public class OrderList {
     private String orderid = "";
     private String signuptime = "";

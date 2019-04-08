@@ -1,4 +1,7 @@
 package com.big.yanzhuang.store;
+/**
+ * 显示出库明细
+ */
 
 import android.os.Handler;
 import android.os.Looper;
@@ -6,8 +9,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
+
 import android.widget.ListView;
 import android.widget.Toast;
 

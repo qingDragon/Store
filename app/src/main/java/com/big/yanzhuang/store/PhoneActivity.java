@@ -45,10 +45,10 @@ public class PhoneActivity extends AppCompatActivity {
         });
     }
     private  void initPersons(){
-        Person pig = new Person("吕文","665513");
-        Person p1 = new Person("顾阳","668207");
-        Person p2 = new Person("张朔","660619");
-        Person p3 = new Person("颜壮","662995");
+        Person pig = new Person("zs","665513");
+        Person p1 = new Person("ls","668207");
+        Person p2 = new Person("wldf","660619");
+        Person p3 = new Person("sdf","662995");
         personList.add(pig);
         personList.add(p1);
 

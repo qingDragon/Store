@@ -1,4 +1,7 @@
 package com.big.yanzhuang.store;
+/**
+ * listview 适配器
+ */
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -80,8 +80,16 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(activity_second);
         listView = findViewById(R.id.list_view);
         imageView3 = findViewById(R.id.img3);
-        getServerdata();
-        imageView3.setOnClickListener(this);
+        OrderList orderList1 = new OrderList(
+                "张三","20181228","抢修","2018122882218102","95598");
+        OrderList orderList2 = new OrderList(
+                "李四","20191228","抢修","2019122882219102","12345");
+        orderLists.add(orderList1);
+        orderLists.add(orderList2);
+        myAdapter = new MyAdapter(SecondActivity.this, orderLists);
+        listView.setAdapter(myAdapter);
+//        getServerdata();
+//        imageView3.setOnClickListener(this);
         Log.d("hello","hello");
     }
 

@@ -1,9 +1,14 @@
 package com.big.yanzhuang.store;
 
+/**
+ * 直播
+ * 实时播放网络摄像头画面
+ */
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
+
 
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -18,10 +23,12 @@ public class LiveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live);
 //        bt1 = findViewById(R.id.bt1);
-        mView = findViewById(R.id.video_view);
-        mPlayer = new TXLivePlayer(this);
-        mPlayer.setPlayerView(mView);
-        mPlayer.startPlay(flvUrl,TXLivePlayer.PLAY_TYPE_LIVE_FLV);
+
+        Toast.makeText(LiveActivity.this, "未接收到视频信号！", Toast.LENGTH_LONG).show();
+//        mView = findViewById(R.id.video_view);
+//        mPlayer = new TXLivePlayer(this);
+//        mPlayer.setPlayerView(mView);
+//        mPlayer.startPlay(flvUrl,TXLivePlayer.PLAY_TYPE_LIVE_FLV);
 
 //        bt1.setOnClickListener(this);
     }

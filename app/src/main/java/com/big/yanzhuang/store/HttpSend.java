@@ -1,12 +1,40 @@
 package com.big.yanzhuang.store;
 
+/**
+ * http访问服务器基础类
+ */
+
 import android.text.TextUtils;
+
+import com.google.gson.JsonObject;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyManagementException;
@@ -15,6 +43,8 @@ import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
@@ -26,6 +56,7 @@ import javax.net.ssl.X509TrustManager;
 
 public class HttpSend {
     private static String res="";
+    //https
     public static String doPost(String path, Map<String,String> params) throws NoSuchProviderException, NoSuchAlgorithmException, KeyManagementException, IOException {
         SSLContext sslcontext = SSLContext.getInstance("SSL");//第一个参数为协议,第二个参数为提供者(可以缺省)
         TrustManager[] tm = {
@@ -109,6 +140,27 @@ public class HttpSend {
         conn.disconnect();
         return in.toString();
     }
+    //json格式访问
+    public static String jsonPost(String url, JsonObject jsonObject, String encoding){
+        CloseableHttpClient httpclient = HttpClientBuilder.create().build();
+        HttpPost post = new HttpPost(url);
+        String response = null;
+        try {
+            StringEntity s = new StringEntity(jsonObject.toString());
+            s.setContentEncoding(encoding);
+            s.setContentType("application/json");//发送json数据需要设置contentType
+            post.setEntity(s);
+            HttpResponse res = httpclient.execute(post);
+            if(res.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                String result = EntityUtils.toString(res.getEntity());// 返回json格式：
+                response = result;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return response;
+    }
+
 
     private static class MyX509TrustManager implements X509TrustManager {
         @Override
@@ -125,5 +177,37 @@ public class HttpSend {
         public X509Certificate[] getAcceptedIssuers() {
             return new X509Certificate[0];
         }
+    }
+
+    //
+    public static String doPost2(String url){
+        String result = "";
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+        HttpEntity entity;
+
+        List<BasicNameValuePair> params =
+                new ArrayList<BasicNameValuePair>();
+        params.add(new BasicNameValuePair("usernum", "662995"));
+        params.add(new BasicNameValuePair("userpwd", "662662"));
+        try {
+            entity = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+            post.setEntity(entity);//设置参数实体
+            HttpResponse res = client.execute(post);//获取HttpResponse实例
+            if(res.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
+                result = EntityUtils.toString(res.getEntity(),"UTF-8");
+            } else {
+                //响应未通过
+            }
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch(ClientProtocolException e){
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

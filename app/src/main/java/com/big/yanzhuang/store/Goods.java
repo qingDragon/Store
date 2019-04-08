@@ -1,5 +1,8 @@
 package com.big.yanzhuang.store;
 
+/**
+ * 物品类
+ */
 public class Goods {
     private String name;
     private String num;

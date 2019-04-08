@@ -1,5 +1,10 @@
 package com.big.yanzhuang.store;
-
+/**
+ *@author Bibi
+ *@date 2019/3/25 22:29
+ *@params No such property: code for class: Script1
+ *@decribe TODO
+**/
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +37,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     ImageView img_view3;
     ImageView img_view4;
     ImageView img_view5;
+    ImageView img_view6;
     ImageView imageView3;
 
     private Handler handler = new Handler(){
@@ -46,6 +52,8 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
              }
         }
     };
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +64,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         img_view3 =  findViewById(R.id.img_view3);
         img_view4 =  findViewById(R.id.img_view4);
         img_view5 =  findViewById(R.id.img_view5);
+        img_view6 = findViewById(R.id.img_view6);
         //添加角标通知
         getOrderAmount();
         Log.d("hello","主线程");
@@ -67,14 +76,24 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         img_view3.setOnClickListener(this);
         img_view4.setOnClickListener(this);
         img_view5.setOnClickListener(this);
+        img_view6.setOnClickListener(this);
         imageView3.setOnClickListener(this);
 
 
     }
 
+    
+    
+    
+
     /**
-     * 获取订单数量
-     */
+     *@author Bibi
+     *@date 2019/3/25 22:50
+     *@name
+     *@params No such property: code for class: Script1
+     *@returnType 
+     *@decribe TODO
+    **/
     public void getOrderAmount(){
 
         new Thread(new Runnable() {
@@ -152,7 +171,9 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
             case R.id.img_view4:
                 Intent intent4 = new Intent(FirstActivity.this,OutActivity.class);
                 startActivity(intent4);
-
+            case R.id.img_view6:
+                Intent intent6 = new Intent(FirstActivity.this,Instore.class);
+                startActivity(intent6);
             default:
                 break;
         }
