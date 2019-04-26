@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import java.net.ConnectException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -31,23 +32,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button btn_login;
     public static String usernum;
     public static String userpwd;
+    public static String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         user_num = (EditText) findViewById(R.id.edit_text1);
         user_pwd = (EditText) findViewById(R.id.edit_text2);
-//        user_num.setText("662995");
-//        user_pwd.setText("123456");
+        user_num.setText("662995");
+        user_pwd.setText("123456");
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_login.setOnClickListener(this);
     }
     private Handler handler = new Handler() {
-        public void handlerMessage(Message msg){
+        public void handleMessage(Message msg){
             switch (msg.what){
                 case 1:
-                    Toast.makeText(LoginActivity.this,"用户名密码错误",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"用户名密码错误！",Toast.LENGTH_LONG).show();
                     Log.d("handler","123");
+                    break;
+                case 2:
+                    Toast.makeText(LoginActivity.this, "网络连接失败！", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;
@@ -98,10 +103,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d("usernum",usernum);
                 String s = null;
                 try {
+                    //访问登录接口
                     s = HttpSend.doPost("http://118.25.40.2/api/login/",post);
 
                     Log.d("s-",s);
+                    //判断用户名密码是否正确
                     if(Tools.str2Json(s).get("message").getAsString().equals("success")){
+                        token = Tools.str2Json(s).get("token").getAsString();
                         Intent intent = new Intent(LoginActivity.this, FirstActivity.class);
                         startActivity(intent);
                     } else {
@@ -117,7 +125,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     e.printStackTrace();
                 } catch (KeyManagementException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
+                } catch (ConnectException e){
+                    Message message = new Message();
+                    message.what = 2;
+                    handler.sendMessage(message);
+                }
+
+                catch (IOException e) {
                     e.printStackTrace();
                 }
             }

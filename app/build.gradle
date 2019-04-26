@@ -63,5 +63,11 @@ dependencies {
     implementation files('lib/fluent-hc-4.5.6.jar')
     implementation 'org.slf4j:slf4j-android:1.7.25'
     implementation files('lib/commons-lang3-3.8.1.jar')
-    implementation project(':nice-spinner')
+    implementation project(':zxing-android-embedded')
+
+
+
+    repositories {
+        jcenter()
+    }
 }

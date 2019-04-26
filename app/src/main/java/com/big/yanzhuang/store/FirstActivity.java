@@ -66,7 +66,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         img_view5 =  findViewById(R.id.img_view5);
         img_view6 = findViewById(R.id.img_view6);
         //添加角标通知
-        getOrderAmount();
+        //getOrderAmount();
         Log.d("hello","主线程");
         Log.d("result",String.valueOf(result));
 
@@ -108,7 +108,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
                     body.put("usernum", LoginActivity.usernum);
                     body.put("userpwd", LoginActivity.userpwd);
                     String s = HttpSend.doPost("https://www.kpcodingoffice.com/api/index", body);
-                    System.out.println(Tools.str2Json(s).get("token").getAsString());
+//                    System.out.println(Tools.str2Json(s).get("token").getAsString());
                     body2.put("usernum", LoginActivity.usernum);
                     body2.put("token", Tools.str2Json(s).get("token").getAsString());
                     Log.d("body2", body2.toString());

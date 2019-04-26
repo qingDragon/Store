@@ -1,1 +1,1 @@
-include ':app', ':nice-spinner'
+include ':app', ':sample-nosupport', ':zxing-android-embedded'
